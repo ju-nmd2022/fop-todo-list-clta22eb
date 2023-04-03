@@ -1,0 +1,36 @@
+* {
+    margin: 0%;
+    background-color: rgb(192, 237, 237);
+}
+
+h1 {
+    background-color: white;
+    margin-bottom: 1.5rem;
+}
+
+header {
+    font-family: 'Rock Salt', cursive;
+    font-size: 1.5em;
+    text-align: center;
+    background-color: white;
+}
+
+.tasks {
+    font-family: sans-serif;
+    text-decoration: line-through;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+input,button {
+    font-size: 0.8em;
+    background-color: white;
+    border-radius: 0.4em;
+}
+
