@@ -1,32 +1,37 @@
 * {
     margin: 0%;
-    background-color: rgb(192, 237, 237);
+    background-color: lightblue;
 }
 
 h1 {
     background-color: white;
+    font-family: 'Rock Salt', cursive;
+    font-size: 3em;
+    text-align: center;
     margin-bottom: 1.5rem;
 }
 
-header {
-    font-family: 'Rock Salt', cursive;
-    font-size: 1.5em;
-    text-align: center;
-    background-color: white;
-}
 
 #tasks {
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:white;
+    border-radius: 0.5em;
+    width: 100%;
+    justify-self: center;
+    background-color: #ffffff;
+    padding: 1rem;
+    
 }
 
 .container {
+    display: grid;
     width: 100%;
     justify-content: center;
     text-align: center;
     font-size: 1.5em;
 }
 
-input,button {
+input, #button {
     font-size: 0.8em;
     background-color: white;
     border-radius: 0.4em;
@@ -37,8 +42,23 @@ input,button {
 .remove-button {
     background-color: transparent;
     border: none;
+    font-size: 0.8em;
 }
 
 .completed {
     text-decoration: line-through;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    background-color: #ffffff;
+}
+
+span, article > div {
+    background-color: #ffffff;
+    margin: 0.5rem;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
 }

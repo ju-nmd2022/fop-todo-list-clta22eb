@@ -14,11 +14,14 @@ function addTask() {
         
         const taskElement = document.createElement("div");
             const task = document.createElement("span");
-            thingToDo = inputElement.value;
-            taskElement.innerText = thingToDo;
+            task.innerText = inputElement.value;
             taskElement.appendChild(task);
             taskElement.addEventListener("click", () => {
-                taskElement.classList.add("completed");
+                if (taskElement.classList.contains("completed")) {
+                    taskElement.classList.remove("completed");
+                } else {
+                    taskElement.classList.add("completed"); 
+                }
             });
         
             const removeButton = document.createElement("button");
@@ -33,8 +36,15 @@ function addTask() {
     }
 }
 
-
+function removeTask() {
+    const element = this.parentNode;
+    element.parentNode.removeChild(element);
+}
 
 createList();
 
 
+//explanation
+// taskElement = the whole task (task & removeButton)
+//        task = only the text in the task
+//        removeButton = the remove button in the task
