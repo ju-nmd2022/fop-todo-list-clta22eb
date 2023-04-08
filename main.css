@@ -19,8 +19,8 @@ h1 {
     width: 100%;
     justify-self: center;
     background-color: #ffffff;
-    padding: 1rem;
-    
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .container {
@@ -47,9 +47,6 @@ input, #button {
 
 .completed {
     text-decoration: line-through;
-    margin-left: 3rem;
-    margin-right: 3rem;
-    background-color: #ffffff;
 }
 
 span, article > div {
