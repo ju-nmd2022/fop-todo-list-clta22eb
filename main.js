@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
             done: false
             }
             
-            tasksArray.push(task);
+            tasksArray.push (task);
             localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
             newTaskInput.value = "";
             displayTasks();
@@ -30,7 +30,7 @@ function displayTasks() {
 
     taskList.innerHTML = "";
 
-    tasksArray.forEach(task => {
+    for (let task of tasksArray) {
         const taskItem = document.createElement("div");
 
         //wrap everything in a label to make it able to click on text to mark as done
@@ -86,5 +86,5 @@ function displayTasks() {
             displayTasks();
         })
 
-    });
+    };
 }
