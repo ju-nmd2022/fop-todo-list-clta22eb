@@ -46,9 +46,10 @@ h1 {
 
 .done {
     text-decoration: line-through;
+    color: rgb(129, 129, 129);
 }
 
-article > div, span {
+article > div, span, label {
     background-color: #ffffff;
     margin: 0.5rem;
 }
@@ -57,4 +58,8 @@ p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.3rem;
     font-weight: bold;
+}
+
+input[type="checkbox"] {
+ display: none;
 }

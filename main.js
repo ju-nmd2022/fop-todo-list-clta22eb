@@ -1,89 +1,90 @@
+// functioning localStorage & JSON was written with help of Tyler Potts on YouTube. Link: https://www.youtube.com/watch?v=6eFwtaZf6zc
 
-const addTaskElement = document.getElementById("add-task");
-const inputElement = document.getElementById("input");
-const buttonElement = document.getElementById("button");
+window.addEventListener("load", () => {
+    tasksArray = JSON.parse(localStorage.getItem("tasksArray"));
 
-
-buttonElement.addEventListener("click", () => {
-    addToDo();
-});
-
-let taskArray = [];
-
-// next lines where written with help from the fruit shop tutorial video
-function removeTask() {
-    const element = this.parentNode;
-
-    // const j = taskContainerElement.querySelector("span");
-    // const emoji = j.innerText;
-    // const emojiIndex = taskArray.indexOf(emoji);
-    // taskArray.splice(emojiIndex, 1);
-
-    element.parentNode.removeChild(element);
-}
+    const newTaskInput = document.getElementById("input");
+    const buttonElement = document.getElementById("button");
 
 
-function addToDo() {
-    let addTask = {
-        name: inputElement.value,
-        done: false
-    };
-
-    if (localStorage.addTask === undefined) {
-        localStorage.addTask = JSON.stringify([]);
-    }
-    taskArray = JSON.parse(localStorage.addTask);
-    taskArray.push(addTask);
-    localStorage.addTask = JSON.stringify(taskArray);
-
+    buttonElement.addEventListener("click", () => {
+        if ( newTaskInput.value >= 0 ) {
+            alert("Please enter a task!");
+        } else {
+            const task = {
+            text: newTaskInput.value,
+            done: false
+            }
+            
+            tasksArray.push(task);
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+            newTaskInput.value = "";
+            displayTasks();
+        }
+    });
     displayTasks();
-}
+})
 
 function displayTasks() {
-    if (localStorage.addTask !== undefined) {
-        let taskArray = JSON.parse(localStorage.addTask);
-        const taskContainerElement = document.getElementById("tasks");
-        taskContainerElement.innerHTML = " ";
-        
-        for (let score of taskArray) {
-            const div = document.createElement("div");
-            taskContainerElement.appendChild(div);
+    const taskList = document.getElementById("task-list");
 
-            const task = document.createElement("span");
-            task.innerText = score.name;
-            div.appendChild(task);
-            inputElement.value = "";
-            task.addEventListener("click", () => {
-                if (score.done === false) {
-                    taskContainerElement.classList.add('done');
-                } else {
-                    taskContainerElement.classList.remove('done');
-                }
-    
-            });
-                
-            const removeButton = document.createElement("button");
-            removeButton.classList.add("remove-button");
-            removeButton.innerText = "🚫";
-            removeButton.addEventListener("click", removeTask);
+    taskList.innerHTML = "";
 
-            //DELETE DOESNT WORK!!
-            // removeButton.addEventListener("click", () => {
+    tasksArray.forEach(task => {
+        const taskItem = document.createElement("div");
 
-            //     // const test = this.querySelector("span");
-            //     // const emojiIndex = taskArray.indexOf(test);
-            //     // taskArray.splice(emojiIndex, 1);
-            // });
+        //wrap everything in a label to make it able to click on text to mark as done
+        const label = document.createElement("label");
+        taskItem.appendChild(label);
 
-            div.appendChild(removeButton);
+        //check box (is not displayed)
+        const checkInput = document.createElement("input");
+        checkInput.type = "checkbox";
+        checkInput.checked = task.done;
+        label.appendChild(checkInput);
+
+        //the task text
+        const taskText = document.createElement("span");
+        taskText.innerText = task.text;
+        label.appendChild(taskText);
+
+        //the remove button
+        const removeButton = document.createElement("button");
+        removeButton.classList.add("remove-button");
+        removeButton.innerText = "🚫";
+        label.appendChild(removeButton);
+
+        //connect the all to mother list
+        taskList.appendChild(taskItem);
+
+        //the following 16 lines were taken from the youtube video mentionet at the top of this doc
+
+        //if it was previously marked as done it will still be
+        if (task.done) {
+            taskItem.classList.add("done");
         }
-    }
-    
+        
+        //if not proviously marked as done this will mark & save it
+        checkInput.addEventListener("click", e => {
+            task.done = e.target.checked;
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+
+            if (task.done) {
+                taskItem.classList.add("done");
+            } else {
+                taskItem.classList.remove("done");
+            }
+
+            displayTasks();
+        })
+
+        removeButton.addEventListener("click", () => {
+            const taskIndex = tasksArray.indexOf(task);
+            tasksArray.splice(taskIndex, 1);
+
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+            displayTasks();
+        })
+
+    });
 }
-
-displayTasks();
-
-//explanation
-// taskElement = the whole task (task & removeButton)
-//        task = only the text in the task
-//        removeButton = the remove button in the task
