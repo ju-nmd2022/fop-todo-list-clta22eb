@@ -14,8 +14,8 @@ let taskArray = [];
 function removeTask() {
     const element = this.parentNode;
 
-    // const j = element.querySelector("div");
-    // const emoji = j.innerHTML;
+    // const j = taskContainerElement.querySelector("span");
+    // const emoji = j.innerText;
     // const emojiIndex = taskArray.indexOf(emoji);
     // taskArray.splice(emojiIndex, 1);
 
@@ -24,18 +24,20 @@ function removeTask() {
 
 
 function addToDo() {
-    let addTask = {name: inputElement.value};
+    let addTask = {
+        name: inputElement.value,
+        done: false
+    };
 
     if (localStorage.addTask === undefined) {
         localStorage.addTask = JSON.stringify([]);
     }
-    let taskArray = JSON.parse(localStorage.addTask);
+    taskArray = JSON.parse(localStorage.addTask);
     taskArray.push(addTask);
     localStorage.addTask = JSON.stringify(taskArray);
 
     displayTasks();
 }
-
 
 function displayTasks() {
     if (localStorage.addTask !== undefined) {
@@ -52,17 +54,27 @@ function displayTasks() {
             div.appendChild(task);
             inputElement.value = "";
             task.addEventListener("click", () => {
-                if (task.style.textDecoration) {
-                    task.style = "none";
-               } else {
-                    task.style.textDecoration = "line-through";
+                if (score.done === false) {
+                    taskContainerElement.classList.add('done');
+                } else {
+                    taskContainerElement.classList.remove('done');
                 }
+    
             });
                 
             const removeButton = document.createElement("button");
             removeButton.classList.add("remove-button");
             removeButton.innerText = "🚫";
             removeButton.addEventListener("click", removeTask);
+
+            //DELETE DOESNT WORK!!
+            // removeButton.addEventListener("click", () => {
+
+            //     // const test = this.querySelector("span");
+            //     // const emojiIndex = taskArray.indexOf(test);
+            //     // taskArray.splice(emojiIndex, 1);
+            // });
+
             div.appendChild(removeButton);
         }
     }
