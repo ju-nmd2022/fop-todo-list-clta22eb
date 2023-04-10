@@ -1,14 +1,19 @@
 // functioning localStorage & JSON was written with help of Tyler Potts on YouTube. Link: https://www.youtube.com/watch?v=6eFwtaZf6zc
+let tasksArray = [];
 
 window.addEventListener("load", () => {
-    tasksArray = JSON.parse(localStorage.getItem("tasksArray"));
+    const storedTasks = localStorage.getItem("tasksArray");
+  
+    if (storedTasks) {
+      tasksArray = JSON.parse(storedTasks);
+    }
 
     const newTaskInput = document.getElementById("input");
     const buttonElement = document.getElementById("button");
 
 
     buttonElement.addEventListener("click", () => {
-        if ( newTaskInput.value >= 0 ) {
+        if ( newTaskInput.value === "" ) {
             alert("Please enter a task!");
         } else {
             const task = {
@@ -16,7 +21,7 @@ window.addEventListener("load", () => {
             done: false
             }
             
-            tasksArray.push (task);
+            tasksArray.push(task);
             localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
             newTaskInput.value = "";
             displayTasks();
